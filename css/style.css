@@ -1,0 +1,38 @@
+* {
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(173, 84, 0);
+}
+
+header{
+    text-align: center;
+    font-size: x-large;
+    color: whitesmoke;
+    margin-top: 2em;
+}
+#secOne{
+    float: left;
+    width: 50%;
+    margin-top: 4em;
+}
+#secTow{
+    float: right;
+    width: 50%;
+    margin-top: 4em;
+}
+img{
+    display: inline-block;
+    width: 30%;
+    height: 250px;
+    margin: 0 auto;
+}
+ul{
+    width: 80%;
+}
+li{
+    font-size: large;
+    list-style: none;
+    color: whitesmoke;
+}
