@@ -71,11 +71,14 @@ function displayImages (){
 }
 displayImages();
 
+let button = document.getElementById('ulist');
+button.addEventListener('click', clicking);
+
 section.addEventListener('click',clicking);
 
 function clicking (event){
     clickCount++;
-console.log(event.target.id);
+
     if (rounds >= clickCount){
         if (event.target.id === 'leftImg'){
             ProductImage.all[leftIndex].votes++;
@@ -88,7 +91,7 @@ console.log(event.target.id);
         }
         displayImages();
     }else {
-        gettingList();
+        document.getElementById("button").onclick = function(){ gettingList()};
         section.removeEventListener('click',clicking);
     }
 }
