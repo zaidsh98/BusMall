@@ -14,14 +14,18 @@ let rounds = 25;
 
 let clickCount = 0;
 
+let arrOfNames = [];
+let arrOfVotes = [];
+
 function ProductImage (name,source){
     this.name = name;
     this.source = source;
     this.votes = 0;
     this.shown = 0;
     ProductImage.all.push(this);
+    arrOfNames.push(this.name);
 }
-
+// console.log(arrOfNames);
 ProductImage.all = [];
 
 new ProductImage('bag','img/bag.jpg');
@@ -51,25 +55,48 @@ function genRandomIndex(){
     return randomIndex;
 }
 
+
+     let frstDisplay = [];
+
+// console.log(frstDisplay.includes());
+
 function displayImages (){
      leftIndex = genRandomIndex();
      middleIndex = genRandomIndex();
      rightIndex = genRandomIndex();
 
-    while(leftIndex === middleIndex || leftIndex === rightIndex || 
-        middleIndex === rightIndex){
-            leftIndex = genRandomIndex();
-            middleIndex = genRandomIndex();
-        }
+
+        // frstDisplay.push(leftIndex,middleIndex,rightIndex);
+
+        // console.log(frstDisplay);
         
+
+            while(leftIndex === middleIndex || leftIndex === rightIndex || 
+                middleIndex === rightIndex){
+                    leftIndex = genRandomIndex();
+                    middleIndex = genRandomIndex();
+                }
+
+
         leftImgElmnt.src = ProductImage.all[leftIndex].source ;
         ProductImage.all[leftIndex].shown++;
         middleImgElmnt.src = ProductImage.all[middleIndex].source;
         ProductImage.all[middleIndex].shown++;
         rightImgElmnt.src = ProductImage.all[rightIndex].source;
         ProductImage.all[rightIndex].shown++;
+
+}
+frstDisplay.push(leftIndex,middleIndex,rightIndex);
+
+if (frstDisplay.includes(leftIndex) || frstDisplay.includes(middleIndex) || 
+frstDisplay.includes(rightIndex)){
+    leftIndex = genRandomIndex();
+    middleIndex = genRandomIndex();
+    rightIndex = genRandomIndex();
 }
 displayImages();
+
+
 
 let button = document.getElementById('ulist');
 button.addEventListener('click', clicking);
@@ -91,14 +118,32 @@ function clicking (event){
         }
         displayImages();
     }else {
-        document.getElementById("button").onclick = function(){ gettingList()};
+        // document.getElementById("button").onclick = function(){ gettingList()};
+        button = document.getElementById('button');
+        button.addEventListener('click',handleShow);
         section.removeEventListener('click',clicking);
     }
+    
 }
+
+function handleShow(){
+    gettingList();
+    gettingChart();
+    button.removeEventListener('click',handleShow);
+}
+
+
+let arrOfSeen =[];
+
 
 function gettingList(){
     let ul = document.getElementById('ulist');
     for (let i = 0; i < ProductImage.all.length; i++){
+        arrOfVotes.push(ProductImage.all[i].votes);
+        arrOfSeen.push(ProductImage.all[i].shown);
+
+
+
         let li = document.createElement('li');
         ul.appendChild(li);
         li.textContent = `${ProductImage.all[i].name} had 
@@ -106,3 +151,31 @@ function gettingList(){
 
     }
 }
+
+function gettingChart(){
+
+
+    let ctx = document.getElementById('myChart')
+    let myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: arrOfNames,
+            datasets: [{
+                label: '# of Votes',
+                data: arrOfVotes,
+                backgroundColor: [
+                    'rgba(0, 0, 0, 1)',
+                ],
+                borderWidth: 1
+            },{
+              label: '# of Seen',
+              data: arrOfSeen,
+              backgroundColor: [
+                  'rgba(207, 0, 15, 1)',
+              ],
+              borderWidth: 1
+          }
+          ]
+        },
+    });
+    }
