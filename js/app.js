@@ -56,9 +56,9 @@ function genRandomIndex(){
 }
 
 
-     let frstDisplay = [];
+     let frstDisplay = [-1,-1,-1];
 
-// console.log(frstDisplay.includes());
+
 
 function displayImages (){
      leftIndex = genRandomIndex();
@@ -66,15 +66,16 @@ function displayImages (){
      rightIndex = genRandomIndex();
 
 
-        // frstDisplay.push(leftIndex,middleIndex,rightIndex);
 
         // console.log(frstDisplay);
         
 
             while(leftIndex === middleIndex || leftIndex === rightIndex || 
-                middleIndex === rightIndex){
+                middleIndex === rightIndex || frstDisplay.includes(leftIndex) || frstDisplay.includes(middleIndex) || 
+                frstDisplay.includes(rightIndex)){
                     leftIndex = genRandomIndex();
                     middleIndex = genRandomIndex();
+                    rightIndex = genRandomIndex();
                 }
 
 
@@ -85,15 +86,11 @@ function displayImages (){
         rightImgElmnt.src = ProductImage.all[rightIndex].source;
         ProductImage.all[rightIndex].shown++;
 
+        frstDisplay = [];
+        frstDisplay.push(leftIndex,middleIndex,rightIndex);
+        console.log(frstDisplay);
 }
-frstDisplay.push(leftIndex,middleIndex,rightIndex);
 
-if (frstDisplay.includes(leftIndex) || frstDisplay.includes(middleIndex) || 
-frstDisplay.includes(rightIndex)){
-    leftIndex = genRandomIndex();
-    middleIndex = genRandomIndex();
-    rightIndex = genRandomIndex();
-}
 displayImages();
 
 
