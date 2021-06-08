@@ -3,7 +3,7 @@
 }
 
 body{
-    background-color: rgb(5, 187, 219);
+    background-color: rgb(36, 1, 1);
 }
 
 header{
@@ -32,7 +32,7 @@ ul{
     width: 80%;
 }
 li{
-    font-size: large;
+   font-size: x-large;
     list-style: none;
     color: whitesmoke;
 }
@@ -52,6 +52,7 @@ button:hover{
 }
 footer{
     clear: both;
+    color: whitesmoke;
     height: 150px;
     margin-top: 50%;
     margin-right: 75px;

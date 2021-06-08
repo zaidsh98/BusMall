@@ -25,7 +25,7 @@ function ProductImage (name,source){
     ProductImage.all.push(this);
     arrOfNames.push(this.name);
 }
-// console.log(arrOfNames);
+
 ProductImage.all = [];
 
 new ProductImage('bag','img/bag.jpg');
@@ -67,7 +67,6 @@ function displayImages (){
 
 
 
-        // console.log(frstDisplay);
         
 
             while(leftIndex === middleIndex || leftIndex === rightIndex || 
@@ -88,17 +87,17 @@ function displayImages (){
 
         frstDisplay = [];
         frstDisplay.push(leftIndex,middleIndex,rightIndex);
-        console.log(frstDisplay);
+
 }
 
 displayImages();
-
 
 
 let button = document.getElementById('ulist');
 button.addEventListener('click', clicking);
 
 section.addEventListener('click',clicking);
+
 
 function clicking (event){
     clickCount++;
@@ -114,17 +113,17 @@ function clicking (event){
             ProductImage.all[rightIndex].votes++;
         }
         displayImages();
+
     }else {
-        // document.getElementById("button").onclick = function(){ gettingList()};
         button = document.getElementById('button');
         button.addEventListener('click',handleShow);
         section.removeEventListener('click',clicking);
     }
-    
 }
 
 function handleShow(){
     gettingList();
+    saving();
     gettingChart();
     button.removeEventListener('click',handleShow);
 }
@@ -149,6 +148,26 @@ function gettingList(){
     }
 }
 
+
+function saving(){
+    let stringArr = JSON.stringify(ProductImage.all);
+    localStorage.setItem('Atempts',stringArr);
+}
+
+
+
+function loading(){
+    let data = localStorage.getItem('Atempts')
+    let parsedAtempts = JSON.parse(data);
+    if (parsedAtempts){
+        ProductImage.all = parsedAtempts;
+    }
+    displayImages();
+}
+
+loading();
+
+
 function gettingChart(){
 
 
@@ -161,18 +180,19 @@ function gettingChart(){
                 label: '# of Votes',
                 data: arrOfVotes,
                 backgroundColor: [
-                    'rgba(0, 0, 0, 1)',
+                    'rgba(244, 208, 63, 1)',
                 ],
-                borderWidth: 1
+                borderWidth: 2
             },{
               label: '# of Seen',
               data: arrOfSeen,
               backgroundColor: [
-                  'rgba(207, 0, 15, 1)',
+                  'rgba(30, 139, 195, 1)',
               ],
-              borderWidth: 1
+              borderWidth: 2
           }
           ]
         },
     });
     }
+   loading();
