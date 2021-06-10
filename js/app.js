@@ -1,22 +1,27 @@
 'use strict';
+// getting the images and declairing them inside a variable.\\
 
 let section = document.getElementById('secOne');
 let leftImgElmnt = document.getElementById('leftImg');
 let middleImgElmnt = document.getElementById('middleImg');
 let rightImgElmnt = document.getElementById('rightImg');
 
+// creating indexes for the images \\
+
 let leftIndex ;
 let middleIndex ;
 let rightIndex ;
 
-
+// setting the rounds of clicks 
 let rounds = 25;
 
+ 
 let clickCount = 0;
 
 let arrOfNames = [];
 let arrOfVotes = [];
 
+// Constructor Function \\
 function ProductImage (name,source){
     this.name = name;
     this.source = source;
@@ -28,6 +33,7 @@ function ProductImage (name,source){
 
 ProductImage.all = [];
 
+// Images instances.\\
 new ProductImage('bag','img/bag.jpg');
 new ProductImage('banana','img/banana.jpg');
 new ProductImage('bathroom','img/bathroom.jpg');
@@ -59,7 +65,7 @@ function genRandomIndex(){
      let frstDisplay = [-1,-1,-1];
 
 
-
+// Displaying images function.\\
 function displayImages (){
      leftIndex = genRandomIndex();
      middleIndex = genRandomIndex();
@@ -68,7 +74,7 @@ function displayImages (){
 
 
         
-
+            // while loop not to duplicate the images \\
             while(leftIndex === middleIndex || leftIndex === rightIndex || 
                 middleIndex === rightIndex || frstDisplay.includes(leftIndex) || frstDisplay.includes(middleIndex) || 
                 frstDisplay.includes(rightIndex)){
@@ -98,6 +104,7 @@ button.addEventListener('click', clicking);
 
 section.addEventListener('click',clicking);
 
+// function for the clicks on the images. \\
 
 function clicking (event){
     clickCount++;
@@ -121,6 +128,8 @@ function clicking (event){
     }
 }
 
+// function that handle showing the lists and the chart. \\
+
 function handleShow(){
     gettingList();
     saving();
@@ -131,7 +140,7 @@ function handleShow(){
 
 let arrOfSeen =[];
 
-
+// function for the lists. \\
 function gettingList(){
     let ul = document.getElementById('ulist');
     for (let i = 0; i < ProductImage.all.length; i++){
@@ -148,14 +157,14 @@ function gettingList(){
     }
 }
 
-
+// Local Storage saving function. \\
 function saving(){
     let stringArr = JSON.stringify(ProductImage.all);
     localStorage.setItem('Atempts',stringArr);
 }
 
 
-
+// getting data from the LS. \\
 function loading(){
     let data = localStorage.getItem('Atempts')
     let parsedAtempts = JSON.parse(data);
@@ -167,7 +176,7 @@ function loading(){
 
 loading();
 
-
+// Chart Function. \\
 function gettingChart(){
 
 
